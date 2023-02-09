@@ -1,0 +1,5 @@
+---
+- name: Configure apt Daffodil VS Code Dev VM
+  hosts: "*"
+  roles:
+    - apt-config

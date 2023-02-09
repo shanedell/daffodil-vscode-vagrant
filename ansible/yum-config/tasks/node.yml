@@ -1,0 +1,14 @@
+---
+- name: Prepare to install nodejs 16
+  shell: curl -fsSL https://rpm.nodesource.com/setup_16.x | bash -
+  become: true
+
+- name: Install nodejs 16
+  yum:
+    name: nodejs
+    state: present
+  become: true
+
+- name: Install yarn
+  shell: npm install -g yarn
+  become: true

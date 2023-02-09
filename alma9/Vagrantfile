@@ -1,0 +1,55 @@
+# Vagrant almalinux 9
+
+# Install any missing plugins
+required_plugins = %w( vagrant-vbguest vagrant-parallels ) #vagrant-proxyconf
+plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+if not plugins_to_install.empty?
+  puts "Installing plugins: #{plugins_to_install.join(' ')}"
+  if system "vagrant plugin install #{plugins_to_install.join(' ')}"
+    exec "vagrant #{ARGV.join(' ')}"
+  else
+    abort "Installation of one or more plugins has failed. Aborting."
+  end
+end
+
+Vagrant.configure("2") do |config|
+  # Grab ENV var that lets us know what arch will be used
+  os_arch = ENV['OS_ARCH']
+
+  # Forward port - ssh
+  config.vm.network "forwarded_port", guest: 22, host: 220
+
+  # ssh configs
+  config.ssh.forward_agent = true
+  config.ssh.forward_x11 = true
+
+  # Figure out what image to use for the vm
+  config.vm.define "#{os_arch}" do |oa|
+    if os_arch.include? "x86_64"
+      config.vm.box = "almalinux/9"
+      config.vm.box_version = "9.1.20221117"
+    else
+      config.vm.box = "almalinux/9.aarch64"
+      config.vm.box_version = "9.1.20230122"
+    end
+  end
+
+  # Setup options for parallels
+  config.vm.provider "parallels" do |prl|
+    prl.name = "daffodil-vscode_alma9-dev"
+    prl.memory = "4096"
+    prl.check_guest_tools = true
+    prl.update_guest_tools = true
+  end
+
+  # Setup options for virtualbox
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "daffodil-vscode_alma9-dev"
+    vb.memory = "4096"
+    vb.gui = true
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "../ansible/yum-site.yml"
+  end
+end

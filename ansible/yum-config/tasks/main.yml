@@ -1,0 +1,44 @@
+---
+- name: Update all packages
+  yum:
+    name: "*"
+    state: latest
+  become: true
+
+- name: Install needed packages
+  yum:
+    name:
+      - curl
+      - git
+      - libxshmfence
+      - at-spi2-atk
+      - gtk3
+      - libdrm
+      - libgbm
+    state: present
+  become: true
+
+- import_tasks: node.yml
+- import_tasks: java_scala.yml
+
+- name: Install Server with GUI - alma
+  yum:
+    name: "@Server with GUI"
+    state: present
+  become: true
+  when: ansible_distribution | lower != "fedora"
+
+- name: Install Cinamon Desktop - fedora
+  yum:
+    name: "@cinnamon-desktop-environment"
+    state: present
+  become: true
+  when: ansible_distribution | lower == "fedora"
+
+- name: Clone daffodil-vscode
+  shell: "git clone https://github.com/apache/daffodil-vscode.git /home/{{ ansible_user }}/daffodil-vscode"
+
+- name: Run yarn install
+  shell:
+    cmd: yarn install
+    chdir: "/home/{{ ansible_user }}/daffodil-vscode"
