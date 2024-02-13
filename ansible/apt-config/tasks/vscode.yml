@@ -1,0 +1,16 @@
+---
+- name: Add vscode repo key
+  shell: wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
+  become: true
+
+- name: Add vscode repo
+  apt_repository:
+    repo: deb [arch=amd64,arm64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+  become: true
+
+- name: Install vscode
+  apt:
+    name: "code"
+    state: present
+  become: true

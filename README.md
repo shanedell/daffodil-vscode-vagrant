@@ -22,7 +22,7 @@ vagrant plugin install vagrant-parallels
 Supported platforms:
 
 - alma9
-- fedora (35/36)
+- fedora (38/39)
 - ubuntu (20.04/22.04)
 
 ## Create VM
@@ -35,16 +35,16 @@ Each script sends in the arch type of the host to the Vagrantfile so it knows wh
 ./create.sh alma9
 ```
 
-#### fedora 35
+#### fedora 38
 
 ```bash
-./create.sh fedora_35
+./create.sh fedora_38
 ```
 
-#### fedora 36
+#### fedora 39
 
 ```bash
-./create.sh fedora_36
+./create.sh fedora_39
 ```
 
 #### ubuntu 20.04
@@ -67,16 +67,16 @@ Each script sends in the arch type of the host to the Vagrantfile so it knows wh
 ./destroy.sh alma9
 ```
 
-#### fedora 35
+#### fedora 38
 
 ```bash
-./destroy.sh fedora_35
+./destroy.sh fedora_38
 ```
 
-#### fedora 36
+#### fedora 39
 
 ```bash
-./destroy.sh fedora_36
+./destroy.sh fedora_39
 ```
 
 #### ubuntu 20.04
@@ -99,16 +99,16 @@ Each script sends in the arch type of the host to the Vagrantfile so it knows wh
 ./ssh.sh alma
 ```
 
-#### fedora 35
+#### fedora 38
 
 ```bash
-./ssh.sh fedora_35
+./ssh.sh fedora_38
 ```
 
-#### fedora 36
+#### fedora 39
 
 ```bash
-./ssh.sh fedora_36
+./ssh.sh fedora_39
 ```
 
 #### ubuntu 20.04
@@ -131,16 +131,16 @@ Each script sends in the arch type of the host to the Vagrantfile so it knows wh
 ./x11-ssh.sh alma
 ```
 
-#### fedora 35
+#### fedora 38
 
 ```bash
-./x11-ssh.sh fedora_35
+./x11-ssh.sh fedora_38
 ```
 
-#### fedora 36
+#### fedora 39
 
 ```bash
-./x11-ssh.sh fedora_36
+./x11-ssh.sh fedora_39
 ```
 
 #### ubuntu 20.04

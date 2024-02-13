@@ -18,6 +18,7 @@
 
 - import_tasks: node.yml
 - import_tasks: java_scala.yml
+- import_tasks: vscode.yml
 
 - name: Install ubuntu-desktop
   apt:

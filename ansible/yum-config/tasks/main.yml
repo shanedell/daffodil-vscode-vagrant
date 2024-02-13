@@ -20,8 +20,9 @@
 
 - import_tasks: node.yml
 - import_tasks: java_scala.yml
+- import_tasks: vscode.yml
 
-- name: Install Server with GUI - alma
+- name: Install Server with GUI - alma/rocky
   yum:
     name: "@Server with GUI"
     state: present
@@ -34,6 +35,10 @@
     state: present
   become: true
   when: ansible_distribution | lower == "fedora"
+
+- name: Set graphical target
+  shell: systemctl set-default graphical
+  become: true
 
 - name: Clone daffodil-vscode
   shell: "git clone https://github.com/apache/daffodil-vscode.git /home/{{ ansible_user }}/daffodil-vscode"
